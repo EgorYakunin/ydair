@@ -12,7 +12,7 @@ export default function RootLayout({
             <head />
             <body>
                 <Navigation />
-				<Spacer bottom="9" />
+				<Spacer bottom="8" />
                 {children}
             </body>
         </html>

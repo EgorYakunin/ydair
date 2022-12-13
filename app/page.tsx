@@ -15,12 +15,12 @@ export default function Home() {
             />
             <Spacer bottom="7"/>
             <Container>
-                <p>Date</p>
-                <h1>12.12</h1>
                 <p>New York</p>
                 <h1>NYC</h1>
                 <p>San Francisco</p>
                 <h1>SFO</h1>
+                <p>Date</p>
+                <h1>12.12</h1>
             <Spacer bottom="7"/>
                 <p>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
