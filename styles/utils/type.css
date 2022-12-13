@@ -9,53 +9,54 @@
 */
 
 @font-face {
-	font-family: 'Helvetica Neue';
-	font-weight: 300;
-	src: local('Helvetica-Neue'), url('../../assets/fonts/HelveticaNeue-Light.woff');
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
+    src: local('Helvetica-Neue'),
+        url('../../assets/fonts/HelveticaNeue-Light.woff');
 }
 
 @font-face {
-	font-family: 'Helvetica Neue';
-	font-weight: 400;
-	src: local('Helvetiva-Neue'), url('../../assets/fonts/HelveticaNeue-Regular.woff');
+    font-family: 'Helvetica Neue';
+    font-weight: 400;
+    src: local('Helvetiva-Neue'),
+        url('../../assets/fonts/HelveticaNeue-Regular.woff');
 }
-
 
 /* 
 	Headlines
 */
 
 h1 {
-	font-weight: 300;
-	font-size: 30vmin;
-	line-height: 110%;
+    font-weight: 300;
+    font-size: 30vmin;
+    line-height: 110%;
 }
 
 h2 {
-	font-weight: 700;
-    font-size: 7vmin;
-	line-height: 115%;
+    font-weight: 300;
+    font-size: 17vmin;
+    line-height: 115%;
 }
 
 h3 {
-	font-weight: 700;
-	font-size: 1.05rem;
-	line-height: 120%;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 120%;
     letter-spacing: 0.05rem;
 }
 
 h4 {
-	font-weight: 600;
-	font-size: 0.875rem;
-	color: #000;
-	line-height: 125%;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 125%;
 }
 
 h5 {
-	font-weight: 600;
-	font-size: 0.6rem;
-	color: #000;
-	line-height: 125%;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 23px;
+    color: #000;
+    letter-spacing: 0.07rem;
 }
 
 @media (min-width: 650px) {
@@ -69,16 +70,16 @@ h5 {
 */
 
 p {
-	font-weight: normal;
-	font-size: 1rem;
-	line-height: 23px;
-	color: var(--bodycopy);
-	letter-spacing: 0.07rem;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 23px;
+    color: var(--bodycopy);
+    letter-spacing: 0.07rem;
 }
 
 .--v2 {
-	font-weight: 500 !important;
-	color: var(--bodycopy);
+    font-weight: 500 !important;
+    color: var(--bodycopy);
 }
 
 /* 
@@ -86,31 +87,31 @@ p {
 */
 
 .--ld {
-	text-align: left;
-	color: black;
+    text-align: left;
+    color: black;
 }
 
 .--cd {
-	text-align: center;
-	color: black;
+    text-align: center;
+    color: black;
 }
 
 .--rd {
-	text-align: right;
-	color: black;
+    text-align: right;
+    color: black;
 }
 
 .--ll {
-	text-align: left;
-	color: white;
+    text-align: left;
+    color: white;
 }
 
 .--cl {
-	text-align: center;
-	color: white !important;
+    text-align: center;
+    color: white !important;
 }
 
 .--rl {
-	text-align: right;
-	color: white;
+    text-align: right;
+    color: white;
 }

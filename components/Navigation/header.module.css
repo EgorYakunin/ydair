@@ -1,0 +1,21 @@
+.navigation {
+    position: fixed;
+    top: 0;
+
+    width: calc(100% - 30px);
+    padding: 1em 2em;
+    margin: 16px 0 16px 16px;
+
+
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border-radius: 15px;
+}
+
+.header {
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
