@@ -27,10 +27,6 @@ export default function DepartureArrival(props: IDepartureArrival) {
                 <h5>{props.departure.time}</h5>
                 <h5 className={styles.right_align}>{props.arrival.time}</h5>
             </Row>
-            <Row>
-                <p>{props.departure.date}</p>
-                <p className={styles.right_align}>{props.arrival.date}</p>
-            </Row>
             <Spacer bottom="4"/>
         </Container>
     );

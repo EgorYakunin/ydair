@@ -1,0 +1,12 @@
+.right_align {
+    text-align: right;
+}
+
+.line {
+    border: 1px solid #000;
+    width: 48%;
+}
+
+.price {
+    color: #000;
+}

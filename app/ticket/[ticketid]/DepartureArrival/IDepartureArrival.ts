@@ -1,12 +1,11 @@
 export default interface IDepartureArrival  {
+    departure_city: string
     departure: {
-        date: string,
         time: string,
         city: string,
         airport_code: string
     },
     arrival: {
-        date: string,
         time: string,
         city: string,
         airport_code: string

@@ -1,11 +1,56 @@
+'use client';
 import Image from 'next/image';
 import Container from '@/components/std/Container';
 import Spacer from '@/components/std/Spacer';
 
+import { useEffect, useState } from 'react';
+import get_arrival_time from '@/lib/get_arrival_time';
+
 import half_plane_illustation from '@/assets/img/half.svg';
+import Ticket from '@/components/Ticket';
+import ITicket from '@/components/Ticket/ITicket';
+import Input from '@/components/Input';
 import styles from './test.module.css';
 
+interface tmp_ticket {
+    id: number,
+    flight_number: string,
+    price: number,
+    departure_time: string,
+    flight_time: number,
+    departure_code: string,
+    arrival_code: string
+}
+
 export default function Home() {
+    const [tickets, set_tickets] = useState([]);
+
+    const ticket_list = tickets.map((ticket: tmp_ticket) => {
+        const ticket_data: ITicket = {
+            id: ticket.id,
+            flight_number: ticket.flight_number,
+            price: ticket.price,
+            departure_time: ticket.departure_time.substring(11),
+            arrival_time: get_arrival_time(ticket.departure_time, ticket.flight_time),
+            departure_airoport_code: ticket.departure_code,
+            arrival_airoport_code: ticket.arrival_code,
+        };
+
+        return <Ticket {...ticket_data} />;
+    });
+
+    useEffect(() => {
+        fetch('/api/find', {
+            method: 'POST',
+            body: JSON.stringify({}),
+        }).then(res => {
+            res.json().then(response => {
+                set_tickets(response);
+                console.log(response);
+            });
+        });
+    }, []);
+
     return (
         <>
             <Image
@@ -13,22 +58,18 @@ export default function Home() {
                 alt="Plane illustation"
                 className={styles.half_img}
             />
-            <Spacer bottom="7"/>
+            <Spacer bottom="7" />
             <Container>
-                <p>New York</p>
-                <h1>NYC</h1>
-                <p>San Francisco</p>
-                <h1>SFO</h1>
-                <p>Date</p>
-                <h1>12.12</h1>
-            <Spacer bottom="7"/>
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Amet accusantium facere dicta voluptates est voluptatum
-                    asperiores, corrupti recusandae aliquid. Eaque.
-                </p>
+                <Input label="Departure city" type="airport" change={function (event: any): void {
+                    console.log('bruh')
+                } }/>
+                <Input label="Arrival city" type="airport" change={function (event: any): void {
+                    console.log('bruh')
+                } }/>
+                <Spacer bottom="7" />
             </Container>
-            <Spacer bottom="25"/>
+            {ticket_list}
+            <Spacer bottom="25" />
         </>
     );
 }

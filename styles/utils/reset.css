@@ -58,22 +58,32 @@ button {
 }
 
 input {
+    width: 100%;
     outline: none;
     border: none;
     box-shadow: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+
+    background-color: transparent;
+    font-weight: 300;
+    font-size: 17vmin;
+    line-height: 115%;
+    text-transform: uppercase;
+}
+
+input::placeholder {
+    font-weight: 300;
+    font-size: 17vmin;
+    line-height: 115%;
+    color: #000;
 }
 
 input::-moz-placeholder {
-    font-family: 'Gilroy';
-    font-size: 1rem;
 }
 
 textarea::-moz-placeholder {
-    font-family: 'Gilroy';
-    font-size: 1rem;
 }
 
 textarea {
@@ -85,11 +95,16 @@ select {
     outline: none;
     border: none;
     box-shadow: none;
-    text-indent: 0.5em;
+    /* text-indent: 0.5em; */
     /* -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none; */
     background-color: transparent;
+    width: 100%;
+    font-weight: 300;
+    font-size: 17vmin;
+    line-height: 115%;
+    color: #000;
 }
 
 select::-ms-expand {
