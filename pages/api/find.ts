@@ -1,42 +1,70 @@
-import { prisma } from '../../lib/prisma';
-import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from "../../lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
 export default async function find(req: NextRequest, res: NextResponse) {
-    const { arr_id, dep_id, id } = JSON.parse(req.body);
+    // @ts-ignore
+    const { arr_code, dep_code } = JSON.parse(req.body);
 
     let sell;
-    if (arr_id === undefined && dep_id === undefined && id === undefined) {
-        sell = await prisma.flight.findMany({});
-    } else if (id !== undefined) {
+    if (!arr_code && !dep_code) {
         sell = await prisma.flight.findMany({
-            where: {
-                id: Number(id),
-            },
             select: {
                 id: true,
-                flight_number: true,
-                arrival_code: true,
-                arrival_city: true,
-                departure_code: true,
-                departure_city: true,
                 departure_time: true,
                 flight_time: true,
                 price: true,
-                plane: {
-                    select: {
-                        reg_number: true,
-                    },
-                },
+                arrival_code: true,
+                departure_code: true,
+            },
+        });
+    }
+    else if (arr_code && dep_code) {
+        sell = await prisma.flight.findMany({
+            where: {
+                arrival_code: arr_code,
+                departure_code: dep_code,
+            },
+            select: {
+                id: true,
+                departure_time: true,
+                flight_time: true,
+                price: true,
+                arrival_code: true,
+                departure_code: true,
+            },
+        });
+    } else if (arr_code) {
+        sell = await prisma.flight.findMany({
+            where: {
+                arrival_code: arr_code,
+            },
+            select: {
+                id: true,
+                departure_time: true,
+                flight_time: true,
+                price: true,
+                arrival_code: true,
+                departure_code: true,
             },
         });
     } else {
         sell = await prisma.flight.findMany({
             where: {
-                arrival_code: arr_id,
-                departure_code: dep_id,
+                departure_code: dep_code,
+            },
+            select: {
+                id: true,
+                departure_time: true,
+                flight_time: true,
+                price: true,
+                departure_code: true,
+                arrival_code: true
             },
         });
     }
 
+    console.log(sell);
+
+    // @ts-ignore
     res.status(200).send(sell);
 }

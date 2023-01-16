@@ -1,66 +1,30 @@
-'use client';
-import Image from 'next/image';
-import Container from '@/components/std/Container';
-import Spacer from '@/components/std/Spacer';
-import plane_illustation from '@/assets/img/7x.svg';
-import styles from './ticket.module.css';
-import FlightDetail from './FlightDetail';
-import DepartureArrival from './DepartureArrival';
-import EditSection from './EditSection';
+import Image from "next/image";
+import Container from "@/components/std/Container";
+import Spacer from "@/components/std/Spacer";
+import plane_illustation from "@/assets/img/7x.svg";
+import styles from "./ticket.module.css";
+import FlightDetail from "./FlightDetail";
+import DepartureArrival from "./DepartureArrival";
+import EditSection from "./EditSection";
+import barcode from "./barcode.svg";
+import IDepartureArrival from "./DepartureArrival/IDepartureArrival";
 
-import barcode from './barcode.svg';
-import IDepartureArrival from './DepartureArrival/IDepartureArrival';
-import { useEffect, useState } from 'react';
-import get_arrival_time from '@/lib/get_arrival_time';
+import get_data from "./get_data";
 
-interface IDefaultState {
-    flight_number: string;
-    departure_city: string;
-    departure_code: string;
-    departure_time: string;
-    arrival_city: string;
-    arrival_code: string;
-    time: string;
-
-    price: number;
-    reg_number: string;
-}
-
-export default function Page({ params }: { params: { ticketid: string } }) {
-    const default_state: IDefaultState = {
-        departure_city: '',
-        departure_code: '',
-        departure_time: '',
-        arrival_city: '',
-        arrival_code: '',
-        time: '',
-        flight_number: '',
-
-        price: 0,
-        reg_number: ""
-    };
-
-    const [ticketData, setTicketData] = useState(default_state);
-
-    useEffect(() => {
-        fetch('/api/find', {
-            method: 'POST',
-            body: JSON.stringify({ id: params.ticketid }),
-        }).then(res => {
-            res.json().then(answer => {
-                setTicketData({
-                    ...answer[0],
-                    reg_number: answer[0].plane.reg_number,
-                    time: get_arrival_time(
-                        answer[0].departure_time,
-                        answer[0].flight_time
-                    ),
-                });
-            });
-        });
-    }, []);
+export default async function Page({
+    params,
+}: {
+    params: { ticketid: string };
+}) {
+    const ticketData = await get_data(params);
 
     const dummy_data: IDepartureArrival = {
+        price: ticketData.price,
+        flight_number: ticketData.flight_number,
+        aircraft: {
+            reg_number: ticketData.reg_number,
+            name: ticketData.name,
+        },
         departure: {
             city: ticketData.departure_city,
             airport_code: ticketData.departure_code,
@@ -71,7 +35,6 @@ export default function Page({ params }: { params: { ticketid: string } }) {
             airport_code: ticketData.arrival_code,
             time: ticketData.time,
         },
-        departure_city: '',
     };
 
     return (
@@ -87,9 +50,10 @@ export default function Page({ params }: { params: { ticketid: string } }) {
             <DepartureArrival {...dummy_data} />
 
             <FlightDetail
-                flight_number={ticketData.flight_number}
-                price={ticketData.price}
-                aircraft_number={ticketData.reg_number}
+                flight_number={dummy_data.flight_number}
+                price={dummy_data.price}
+                aircraft_number={dummy_data.aircraft.reg_number}
+                plane={dummy_data.aircraft.name}
             />
 
             <Container>
@@ -108,7 +72,7 @@ export default function Page({ params }: { params: { ticketid: string } }) {
                 />
             </Container>
             <Spacer bottom="2" />
-            <EditSection />
+            <EditSection id={params.ticketid} ticket_data={ticketData} />
             <Spacer bottom="10" />
         </>
     );

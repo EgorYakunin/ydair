@@ -1,15 +1,16 @@
 import { prisma } from "../../lib/prisma"
 import { NextRequest, NextResponse } from "next/server";
 
-export default async function del(req: NextRequest, res: NextResponse) {
+export default async function delete_flight(req: NextRequest, res: NextResponse) {
+    // @ts-ignore
+    const { id } = JSON.parse(req.body);
 
-    const {id} = JSON.parse(req.body);
-
-    const delete_flight = await prisma.flight.deleteMany({
+    const delete_flight = await prisma.flight.delete({
         where: {
             id: Number(id),
         },
     })
 
+    // @ts-ignore
     res.status(200).send({res: "ok"})
 }

@@ -25,6 +25,12 @@ export default function FlightDetail(props: IFlightDedails) {
                 <h2>{props.aircraft_number}</h2>
             </Container>
             <hr />
+            <Container>
+                <Spacer top="1" />
+                <p>Plane</p>
+                <h2>{props.plane}</h2>
+            </Container>
+            <hr />
         </>
     );
 }

@@ -1,5 +1,10 @@
 export default interface IDepartureArrival  {
-    departure_city: string
+    flight_number: string,
+    price: number,
+    aircraft: {
+        reg_number: string,
+        name: string
+    }
     departure: {
         time: string,
         city: string,
@@ -9,5 +14,5 @@ export default interface IDepartureArrival  {
         time: string,
         city: string,
         airport_code: string
-    }
+    },
 }

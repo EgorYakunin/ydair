@@ -12,6 +12,7 @@ function code_to_city(code: string): string {
 }
 
 export default async function add(req: NextRequest, res: NextResponse) {
+    // @ts-ignore
     const { fl_num, arr_id, dep_id, dep_time, time, price, plane_id } = JSON.parse(req.body);
 
     console.log(plane_id);
@@ -33,5 +34,6 @@ export default async function add(req: NextRequest, res: NextResponse) {
         },
     });
 
+    // @ts-ignore
     res.status(200).send({ res: 'ok' });
 }

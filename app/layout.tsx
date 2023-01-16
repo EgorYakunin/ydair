@@ -1,6 +1,6 @@
-import '@/styles/global.css';
-import Navigation from '@/components/Navigation';
-import Spacer from '@/components/std/Spacer';
+import "@/styles/global.css";
+import Navigation from "@/components/Navigation";
+import Spacer from "@/components/std/Spacer";
 
 export default function RootLayout({
     children,
@@ -12,7 +12,7 @@ export default function RootLayout({
             <head />
             <body>
                 <Navigation />
-				<Spacer bottom="8" />
+                <Spacer top="8"/>
                 {children}
             </body>
         </html>

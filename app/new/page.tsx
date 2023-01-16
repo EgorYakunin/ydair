@@ -1,9 +1,9 @@
-'use client';
-import Button from '@/components/Button';
-import Spacer from '@/components/std/Spacer';
-import Container from '@/components/std/Container';
-import Input from '../../components/Input';
-import form_controller from './form_controller';
+"use client";
+import Button from "@/components/Button";
+import Spacer from "@/components/std/Spacer";
+import Container from "@/components/std/Container";
+import Input from "../../components/Input";
+import form_controller from "./form_controller";
 
 export default function Page() {
     const { handle_change, onClick } = form_controller();
@@ -16,6 +16,7 @@ export default function Page() {
                 type="text"
                 default="123456"
                 change={handle_change}
+                max_length={6}
             />
             <Input label="Plane" type="plane" change={handle_change} />
             <Input
@@ -34,12 +35,14 @@ export default function Page() {
                 label="Flight time (min)"
                 type="number"
                 default="120"
+                max_length={3}
                 change={handle_change}
             />
             <Input
                 label="Price"
                 type="number"
                 default="$3000"
+                max_length={5}
                 change={handle_change}
             />
             <Container>
