@@ -15,8 +15,6 @@ type props = {
 
 export default function Input(props: props) {
 
-    console.log(props.value);
-
     return (
         <>
             <Spacer top="1" />

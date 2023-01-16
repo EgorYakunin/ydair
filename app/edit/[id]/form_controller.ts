@@ -1,58 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import parse_query_string from "@/lib/parse_query";
 import { useRouter } from "next/navigation";
+
+interface ITicketData {
+    departure_airport: string;
+    arrival_airport: string;
+    departure_time: string;
+    departure_date: string;
+    flight_number: string;
+    flight_time: number;
+    price: number;
+    plane: string;
+}
 
 export default function form_controller() {
     const router = useRouter();
 
-    function onClick() {
-        const err = [];
+    function getQuery() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let params = parse_query_string(urlParams.toString());
 
-        add_data.fl_num == "" && err.push("fl_num");
-        add_data.arr_id == 0 && err.push("arr_id");
-        add_data.dep_id == 0 && err.push("dep_id");
-        add_data.dep_time == 0 && err.push("dep_time");
-        add_data.dep_date == 0 && err.push("dep_date");
-        add_data.time == 0 && err.push("time");
-        add_data.price == 0 && err.push("price");
-        add_data.plane_id == 0 && err.push("plane_id");
+        //@ts-ignore
+        params.departure_date = params.departure_date.replace(/\+/gi, " ");
 
-        if (err.length > 0) {
-            console.log(add_data);
-            console.log(err);
-            alert("Some input is missing value");
-        } else {
-            const send_data = {
-                ...add_data,
-                dep_time: add_data.dep_date + " " + add_data.dep_time,
-            };
-            // delete send_data.dep_date;
+        return params;
+    }
 
-            fetch("/api/add", {
-                method: "POST",
-                body: JSON.stringify(send_data),
-            }).then(res => {
-                res.json().then(answer => {
-                    if (answer.res == "ok") {
-                        router.push("/");
-                    }
-                });
-            });
+    function getPlane(airport: string) {
+        if (airport == "D-ATON") {
+            return 1;
+        }
+        if (airport == "N156FE") {
+            return 2;
+        }
+        if (airport == "N728FD") {
+            return 3;
+        }
+        if (airport == "N724LA") {
+            return 4;
+        }
+        if (airport == "N913NK") {
+            return 5;
         }
     }
 
-    const [add_data, setAddData] = useState({
-        fl_num: "",
-        arr_id: 0,
-        dep_id: 0,
-        dep_time: 0,
-        dep_date: 0,
-        time: 0,
+    const [form_data, set_form_data] = useState<ITicketData>({
+        departure_airport: "",
+        arrival_airport: "",
+        departure_time: "",
+        departure_date: "",
+        flight_number: "",
+        flight_time: 0,
         price: 0,
-        plane_id: 0,
+        plane: "",
     });
 
+    useEffect(() => {
+        //@ts-ignore
+        set_form_data(getQuery);
+    }, []);
+
     function change_state(name: string, value: any) {
-        setAddData(prev => {
+        set_form_data(prev => {
             return {
                 ...prev,
                 [name]: value,
@@ -63,21 +72,42 @@ export default function form_controller() {
     function handle_change(event: any) {
         const { name, value } = event.target;
 
-        name === "Flight number" && change_state("fl_num", value);
-        name === "Plane" && change_state("plane_id", value);
+        name === "Flight number" && change_state("flight_number", value);
+        name === "Plane" && change_state("plane", value);
 
-        name === "Departure Airport" && change_state("dep_id", value);
-        name === "Arrival Airport" && change_state("arr_id", value);
+        name === "Departure Airport" &&
+            change_state("departure_airport", value);
+        name === "Arrival Airport" && change_state("arrival_airport", value);
 
-        name === "Flight time (min)" && change_state("time", value);
+        name === "Flight time (min)" && change_state("flight_time", value);
         name === "Price" && change_state("price", value);
 
-        name === "Departure time" && change_state("dep_time", value);
-        name === "Departure date" && change_state("dep_date", value);
+        name === "Departure time" && change_state("departure_time", value);
+        name === "Departure date" && change_state("departure_date", value);
+    }
+
+    function onClick() {
+        const id = window.location.href.split("/")[4].split("?")[0];
+
+        const data = {
+            id,
+            flight_data: form_data
+        }
+
+        console.log(data);
+
+        fetch("/api/update", {
+            method: "POST",
+            body: JSON.stringify(data),
+        }).then(res => {
+            router.push(`/ticket/${id}`);
+        });
     }
 
     return {
-        onClick,
+        form_data,
+        getPlane,
         handle_change,
+        onClick,
     };
 }

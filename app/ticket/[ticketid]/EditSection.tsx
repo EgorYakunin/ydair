@@ -16,9 +16,10 @@ export default function EditSection(props: props) {
     const router = useRouter();
 
     function delete_flight() {
+
         const res = fetch("/api/delete", {
-            method: "post",
-            body: JSON.stringify(props.id),
+            method: "POST",
+            body: JSON.stringify({id: props.id}),
         }).then(() => router.push("/"));
     }
 

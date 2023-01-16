@@ -1,21 +1,10 @@
 import { prisma } from '../../lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-
-function code_to_city(code: string): string {
-    if (code === 'LED') return 'Saint-Petersburg';
-    if (code === 'LAX') return 'Los Angeles';
-    if (code === 'JNK') return 'New York';
-    if (code === 'SFO') return 'San Francisco';
-    if (code === 'NSK') return 'Norilsk';
-
-    return 'bruh';
-}
+import code_to_city from '@/lib/code_to_city';
 
 export default async function add(req: NextRequest, res: NextResponse) {
     // @ts-ignore
     const { fl_num, arr_id, dep_id, dep_time, time, price, plane_id } = JSON.parse(req.body);
-
-    console.log(plane_id);
 
     const sell = await prisma.flight.create({
         data: {
