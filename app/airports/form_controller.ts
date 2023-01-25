@@ -3,9 +3,8 @@ import { useRouter } from "next/navigation";
 
 export default function form_controller() {
     const [add_data, setAddData] = useState({
-        reg_number: "",
-        plane_name: "",
-        airline: "",
+        city: "",
+        code: "",
     });
 
     const router = useRouter();
@@ -13,15 +12,14 @@ export default function form_controller() {
     function onSubmit() {
         const err = [];
 
-        add_data.reg_number === "" && err.push("reg_number");
-        add_data.plane_name === "" && err.push("plane_name");
-        add_data.airline === "" && err.push("airline");
+        add_data.city === "" && err.push("city");
+        add_data.code === "" && err.push("code");
 
         if (err.length > 0) {
             return alert("Some input is missing value");
         }
 
-        fetch("/api/add_plane", {
+        fetch("/api/add_airport", {
             method: "POST",
             body: JSON.stringify(add_data),
         }).then(res => {
@@ -45,9 +43,8 @@ export default function form_controller() {
     function handle_change(event: any) {
         const { name, value } = event.target;
 
-        name === "Reg number" && change_state("reg_number", value);
-        name === "Plane name" && change_state("plane_name", value);
-        name === "Airline" && change_state("airline", value);
+        name === "City" && change_state("city", value);
+        name === "Code" && change_state("code", value);
     }
 
     return {

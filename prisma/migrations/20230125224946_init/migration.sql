@@ -24,5 +24,17 @@ CREATE TABLE "Flight" (
     CONSTRAINT "Flight_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Airport" (
+    "id" SERIAL NOT NULL,
+    "city" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+
+    CONSTRAINT "Airport_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE INDEX "Flight_planeId_idx" ON "Flight"("planeId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Airport_code_key" ON "Airport"("code");

@@ -5,6 +5,7 @@ import Container from "@/components/std/Container";
 import Input from "../../components/Input";
 import form_controller from "./form_controller";
 import PlaneSelect from "@/components/PlaneSelect";
+import AirportSelect from "@/components/AirportSelect";
 
 export default function Page() {
     const { handle_change, onClick } = form_controller();
@@ -23,16 +24,15 @@ export default function Page() {
 
             <PlaneSelect label="Plane" change={handle_change} />
 
-            <Input
+            <AirportSelect
                 label="Departure Airport"
-                type="airport"
                 change={handle_change}
             />
-            <Input
+            <AirportSelect
                 label="Arrival Airport"
-                type="airport"
                 change={handle_change}
             />
+
             <Input label="Departure date" type="date" change={handle_change} />
             <Input label="Departure time" type="time" change={handle_change} />
             <Input

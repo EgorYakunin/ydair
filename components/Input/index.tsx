@@ -1,7 +1,7 @@
 import Spacer from "@/components/std/Spacer";
 import Container from "@/components/std/Container";
 
-type input_type = "text" | "date" | "time" | "number" | "airport";
+type input_type = "text" | "date" | "time" | "number";
 import styles from "./input.module.css";
 
 type props = {
@@ -31,14 +31,7 @@ export default function Input(props: props) {
                         onChange={props.change}
                     />
                 )}
-                {/* {props.type === "plane" && (
-                    <select name={props.label} value={props.value} onChange={props.change}>
-                        <option>select</option>
-                        <option value="1">D-ATON</option>
-                        <option value="2">N156FE</option>
-                    </select>
-                )} */}
-                {props.type === "airport" && (
+                {/* {props.type === "airport" && (
                     <select name={props.label} value={props.value} onChange={props.change}>
                         <option value="">XXX</option>
                         <option>LED</option>
@@ -47,7 +40,7 @@ export default function Input(props: props) {
                         <option>SFO</option>
                         <option>NSK</option>
                     </select>
-                )}
+                )} */}
                 {props.type === "date" && (
                     <input
                         type="text"

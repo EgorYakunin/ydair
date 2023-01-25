@@ -10,7 +10,7 @@ import get_arrival_time from "@/lib/get_arrival_time";
 import half_plane_illustation from "@/assets/img/half.svg";
 import Ticket from "@/components/Ticket";
 import ITicket from "@/components/Ticket/ITicket";
-import Input from "@/components/Input";
+import AirportSelect from "@/components/AirportSelect";
 import styles from "./test.module.css";
 
 interface tmp_ticket {
@@ -55,9 +55,15 @@ export default function Home() {
     }, []);
 
     function filter_tickets(arr_code: string, dep_code: string) {
+
+        let body = {arr_code, dep_code};
+
+        if (arr_code == 0) delete body.arr_code
+        if (dep_code == 0) delete body.dep_code
+
         fetch("/api/find", {
             method: "POST",
-            body: JSON.stringify({ arr_code, dep_code }),
+            body: JSON.stringify(body),
         }).then(res => {
             res.json().then(response => {
                 set_tickets(response);
@@ -74,9 +80,8 @@ export default function Home() {
             />
             <Spacer bottom="7" />
             <Container>
-                <Input
+                <AirportSelect
                     label="Departure city"
-                    type="airport"
                     change={function (event: any): void {
                         const arr_code =
                             document.getElementsByName("Arrival city")[0].value;
@@ -87,9 +92,8 @@ export default function Home() {
                         filter_tickets(arr_code, dep_code);
                     }}
                 />
-                <Input
+                <AirportSelect
                     label="Arrival city"
-                    type="airport"
                     change={function (event: any): void {
                         const arr_code =
                             document.getElementsByName("Arrival city")[0].value;

@@ -39,3 +39,9 @@ model Flight {
 
   @@index([planeId])
 }
+
+model Airport {
+  id      Int      @id @default(autoincrement())
+  city    String
+  code    String   @unique
+}
