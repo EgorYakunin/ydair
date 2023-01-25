@@ -4,11 +4,11 @@ import Spacer from "@/components/std/Spacer";
 import Container from "@/components/std/Container";
 import Input from "@/components/Input";
 import form_controller from "./form_controller";
+import AirportSelect from "@/components/AirportSelect";
+import PlaneSelect from "@/components/PlaneSelect";
 
 export default function Page({ params }: { params: { id: string } }) {
     const { handle_change, onClick, form_data, getPlane } = form_controller();
-
-    
 
     return (
         <>
@@ -21,21 +21,18 @@ export default function Page({ params }: { params: { id: string } }) {
                 change={handle_change}
                 max_length={6}
             />
-            <Input
+            <PlaneSelect
                 label="Plane"
                 value={getPlane(form_data.plane)}
-                type="plane"
                 change={handle_change}
             />
-            <Input
+            <AirportSelect
                 label="Departure Airport"
-                type="airport"
                 change={handle_change}
                 value={form_data.departure_airport}
             />
-            <Input
+            <AirportSelect
                 label="Arrival Airport"
-                type="airport"
                 change={handle_change}
                 value={form_data.arrival_airport}
             />
