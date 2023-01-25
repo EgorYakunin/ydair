@@ -2,6 +2,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function form_controller() {
+    const [add_data, setAddData] = useState({
+        fl_num: "",
+        arr_id: 0,
+        dep_id: 0,
+        dep_time: 0,
+        dep_date: 0,
+        time: 0,
+        price: 0,
+        plane_id: 0,
+    });
+
     const router = useRouter();
 
     function onClick() {
@@ -17,8 +28,6 @@ export default function form_controller() {
         add_data.plane_id == 0 && err.push("plane_id");
 
         if (err.length > 0) {
-            console.log(add_data);
-            console.log(err);
             alert("Some input is missing value");
         } else {
             const send_data = {
@@ -37,19 +46,9 @@ export default function form_controller() {
                     }
                 });
             });
+
         }
     }
-
-    const [add_data, setAddData] = useState({
-        fl_num: "",
-        arr_id: 0,
-        dep_id: 0,
-        dep_time: 0,
-        dep_date: 0,
-        time: 0,
-        price: 0,
-        plane_id: 0,
-    });
 
     function change_state(name: string, value: any) {
         setAddData(prev => {

@@ -4,6 +4,7 @@ import Spacer from "@/components/std/Spacer";
 import Container from "@/components/std/Container";
 import Input from "../../components/Input";
 import form_controller from "./form_controller";
+import PlaneSelect from "@/components/PlaneSelect";
 
 export default function Page() {
     const { handle_change, onClick } = form_controller();
@@ -18,7 +19,10 @@ export default function Page() {
                 change={handle_change}
                 max_length={6}
             />
-            <Input label="Plane" type="plane" change={handle_change} />
+            {/* <Input label="Plane" type="plane" change={handle_change} /> */}
+
+            <PlaneSelect label="Plane" change={handle_change} />
+
             <Input
                 label="Departure Airport"
                 type="airport"
